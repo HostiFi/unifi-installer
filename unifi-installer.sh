@@ -54,7 +54,7 @@ chmod +x /root/unifi-lets-encrypt-ssl-importer.sh
 echo "Creating Let's Encrypt cron"
 sleep 2
 crontab -l > /root/letsencryptcron
-echo "23 1,13 * * * /opt/unifi-lets-encrypt-ssl-importer.sh -d $HOSTNAMEVAR" >> /root/letsencryptcron
+echo "0 23 * * * /opt/unifi-lets-encrypt-ssl-importer.sh -d $HOSTNAMEVAR" >> /root/letsencryptcron
 crontab /root/letsencryptcron
 rm /root/letsencryptcron
 
