@@ -5,7 +5,6 @@ case "${option}"
 in
 e) EMAIL=${OPTARG};;
 d) HOSTNAMEVAR=${OPTARG};;
-
 esac
 done
 echo $EMAIL;
