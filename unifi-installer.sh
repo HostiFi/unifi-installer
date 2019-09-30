@@ -46,8 +46,12 @@ chmod +x /root/unifi-lets-encrypt-ssl-importer.sh
 
 echo "Creating Let's Encrypt cron"
 crontab -l > /root/letsencryptcron
+crontab -l > /root/certbotcron
+echo "0 22 * * * /usr/bin/certbot renew" >> /root/certbotcron
 echo "0 23 * * * /bin/bash /root/unifi-lets-encrypt-ssl-importer.sh -d $HOSTNAMEVAR" >> /root/letsencryptcron
+crontab /root/certbotcron
 crontab /root/letsencryptcron
+rm /root/cerbotcron
 rm /root/letsencryptcron
 
 echo "Creating firewall rules"
