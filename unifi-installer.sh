@@ -45,6 +45,7 @@ chmod +x /root/unifi-lets-encrypt-ssl-importer.sh
 /root/unifi-lets-encrypt-ssl-importer.sh -d $HOSTNAMEVAR
 
 echo "Creating Let's Encrypt cron"
+touch /var/spool/cron/crontabs/root
 crontab -l | { cat; echo "0 22 * * * /usr/bin/certbot renew"; } | crontab -
 crontab -l | { cat; echo "0 23 * * * /bin/bash /root/unifi-lets-encrypt-ssl-importer.sh -d $HOSTNAMEVAR"; } | crontab -
 
