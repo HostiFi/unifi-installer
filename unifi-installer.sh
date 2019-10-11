@@ -45,14 +45,8 @@ chmod +x /root/unifi-lets-encrypt-ssl-importer.sh
 /root/unifi-lets-encrypt-ssl-importer.sh -d $HOSTNAMEVAR
 
 echo "Creating Let's Encrypt cron"
-crontab -l > /root/letsencryptcron
-crontab -l > /root/certbotcron
-echo "0 22 * * * /usr/bin/certbot renew" >> /root/certbotcron
-echo "0 23 * * * /bin/bash /root/unifi-lets-encrypt-ssl-importer.sh -d $HOSTNAMEVAR" >> /root/letsencryptcron
-crontab /root/certbotcron
-crontab /root/letsencryptcron
-rm /root/cerbotcron
-rm /root/letsencryptcron
+crontab -l | { cat; echo "0 22 * * * /usr/bin/certbot renew"; } | crontab -
+crontab -l | { cat; echo "0 23 * * * /bin/bash /root/unifi-lets-encrypt-ssl-importer.sh -d $HOSTNAMEVAR"; } | crontab -
 
 echo "Creating firewall rules"
 iptables -t nat -I PREROUTING -p tcp --dport 443 -j REDIRECT --to-ports 8443
